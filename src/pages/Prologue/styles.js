@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Prologue = styled.section`
-  background: green;
+  background: url(images/frank_1.jpg);
   height: 50rem;
   padding: 4rem;
 `;
