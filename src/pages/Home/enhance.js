@@ -8,17 +8,8 @@ const enhance = compose(
   withProps(props => ({
     yumm: 'tumm',
   })),
-  withProps(console.log),
-  //   withHandlers({
-  //     fetchQuestions: props => events => props.fetchQuestions(),
-  //   }),
   lifecycle({
-    async componentDidMount() {
-      const { props } = this;
-
-      console.log('ds sdaf ey');
-      //   props.fetchQuestions()
-    },
+    componentDidMount() {},
   })
 );
 

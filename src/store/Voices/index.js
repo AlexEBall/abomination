@@ -1,37 +1,40 @@
 import { fromJS } from 'immutable';
 
 export const types = {
-  FETCH_ENCOUNTERS: 'encounters/FETCH_ENCOUNTERS',
-  GET_PROLOGUE: 'prologue/GET_PROLOGUE',
+  FETCH_VOICES: 'encounters/FETCH_VOICES',
 };
 
-export const getPrologueText = () => ({
-  type: types.GET_PROLOGUE,
-  payload: 'This is the prologue',
-});
+export const fetchVoices = () => {
+  let voices = [];
+  const voiceschanged = () => {
+    window.speechSynthesis.getVoices().forEach(voice => {
+      voices.push(voice);
+    });
+  };
+
+  console.log(voices);
+  window.speechSynthesis.onvoiceschanged = voiceschanged;
+  return {
+    type: types.FETCH_VOICES,
+    payload: voices,
+  };
+};
 
 export const initalState = fromJS({
-  encounters: {
+  voices: {
     busy: false,
     error: '',
     entities: {},
-  },
-  prologue: {
-    text: '',
   },
 });
 
 export default (state = initalState, { type, payload = {}, meta = {} }) => {
   switch (type) {
-    case types.FETCH_ENCOUNTERS: {
+    case types.FETCH_VOICES: {
       console.log(payload);
       return state
         .setIn(['encounters, busy'], false)
         .setIn(['encounters, entities'], fromJS(payload));
-    }
-
-    case types.GET_PROLOGUE: {
-      return state.setIn(['prologue', 'text'], fromJS(payload));
     }
 
     default:

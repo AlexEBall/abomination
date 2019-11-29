@@ -6,13 +6,8 @@ const enhance = compose(
   withProps(props => ({
     hello: 'goodbye',
   })),
-  //   withProps(console.log),
   lifecycle({
-    async componentDidMount() {
-      const { props } = this;
-
-      console.log('yo you yo');
-    },
+    componentDidMount() {},
   })
 );
 
