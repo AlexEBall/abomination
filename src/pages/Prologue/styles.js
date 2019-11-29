@@ -11,5 +11,5 @@ export const Button = styled.button`
   width: 5.2rem;
   height: 2rem;
   border-radius: 0.4rem;
-  background: lightgreen;
+  background: ${p => (p.second ? 'pink' : 'lightgreen')};
 `;

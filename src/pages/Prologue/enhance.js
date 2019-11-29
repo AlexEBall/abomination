@@ -1,28 +1,33 @@
-import { compose, lifecycle, withHandlers, withProps } from 'recompose';
+import { compose, lifecycle, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 
 import { getPrologueText } from '../../store/Text';
 
 const enhance = compose(
   connect(
-    ({ Text }) => ({
+    ({ Text, Voices }) => ({
+      voices: Voices.get('voicesMap'),
       prologue: Text.getIn(['prologue', 'text']),
+      encounter: Text.getIn(['encounters', 'text']),
     }),
     { getPrologueText }
   ),
   withHandlers({
-    say: props => e => {
+    say: props => ({ name, text }) => e => {
+      console.log(props);
       e.preventDefault();
 
-      const utterance = new SpeechSynthesisUtterance(props.prologue);
+      // This can all be extractd into its own util and maybe HOC
+      const utterance = new SpeechSynthesisUtterance(text);
       let voices = [];
 
       voices = window.speechSynthesis.getVoices();
 
       for (let i = 0; i < voices.length; i++) {
+        // console.log(voices[i]);
         // Have to do some mapping for voice characters
         // possibly also button fade in stuff to give voice API time
-        if (voices[i].name === 'Thomas') {
+        if (voices[i].name === name) {
           utterance.voice = voices[i];
         }
       }
@@ -33,7 +38,7 @@ const enhance = compose(
   lifecycle({
     componentDidMount() {
       const { props } = this;
-      props.getPrologueText();
+      // props.getPrologueText();
     },
   })
 );

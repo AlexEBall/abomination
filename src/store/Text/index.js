@@ -12,14 +12,14 @@ export const getPrologueText = () => ({
 
 export const initalState = fromJS({
   encounters: {
-    busy: false,
-    error: '',
-    entities: {},
+    text: 'Encounters baby!',
   },
   prologue: {
-    text: '',
+    text: 'This is the prologue',
   },
 });
+
+// not really changing state
 
 export default (state = initalState, { type, payload = {}, meta = {} }) => {
   switch (type) {
