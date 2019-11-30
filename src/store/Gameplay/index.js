@@ -4,6 +4,7 @@ export const types = {
   ROUND: 'gameplay/ROUND',
   INCREASE_ROUND: 'gameplay/INCREASE_ROUND',
   LOAD_EVENT: 'gameplay/LOAD_EVENT',
+  UPDATE_SPEAKING: 'gameplay/UPDATE_SPEAKING',
 };
 
 export const round = () => ({
@@ -19,9 +20,12 @@ export const loadWorkingEvent = event => ({
   payload: event,
 });
 
+export const updateIsSpeaking = event => ({ type: types.UPDATE_SPEAKING });
+
 export const initalState = fromJS({
   round: 1,
   workingEvent: {},
+  isSpeaking: false,
 });
 
 export default (state = initalState, { type, payload = {}, meta = {} }) => {
@@ -37,13 +41,17 @@ export default (state = initalState, { type, payload = {}, meta = {} }) => {
         round++;
       }
 
-      return state.set('round', round);
+      return state.set('round', fromJS(round));
     }
 
     case types.LOAD_EVENT: {
-      console.log(payload);
+      // console.log(payload);
 
       return state.set('workingEvent', fromJS(payload));
+    }
+
+    case types.UPDATE_SPEAKING: {
+      return state.set('isSpeaking', fromJS(!state.get('isSpeaking')));
     }
 
     default:

@@ -9,6 +9,7 @@ const Component = ({
   chooseEventCard,
   handleChange,
   isEventOn,
+  isSpeaking,
   selectOptions,
   workingEvent,
 }) => (
@@ -16,7 +17,7 @@ const Component = ({
     <button onClick={chooseEventCard}>Trigger event</button>
     {isEventOn && (
       <form>
-        <select type='select' onChange={handleChange}>
+        <select type='select' onChange={handleChange} disabled={isSpeaking}>
           {selectOptions.map((option, i) => (
             <option key={i} value={option}>
               {option}

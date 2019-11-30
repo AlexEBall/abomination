@@ -1,5 +1,6 @@
 import React from 'react';
 
+import enhance from './enhance';
 import { Card } from './styles';
 
 const Component = ({ name, outcome, event, icon, roundMin, roundMax }) => (
@@ -12,4 +13,4 @@ const Component = ({ name, outcome, event, icon, roundMin, roundMax }) => (
   </Card>
 );
 
-export default Component;
+export default enhance(Component);

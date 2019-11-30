@@ -15,6 +15,7 @@ const enhance = compose(
     ({ Gameplay, Text }) => ({
       events: Text.get('events'),
       workingEvent: Gameplay.get('workingEvent'),
+      isSpeaking: Gameplay.get('isSpeaking'),
     }),
     { loadWorkingEvent }
   ),
@@ -34,7 +35,7 @@ const enhance = compose(
       props.loadWorkingEvent(event[0]);
     },
   }),
-  withProps(console.log),
+  // withProps(console.log),
   lifecycle({
     componentDidMount() {
       const { props } = this;

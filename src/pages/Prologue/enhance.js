@@ -14,7 +14,7 @@ const enhance = compose(
   ),
   withHandlers({
     say: props => ({ name, text }) => e => {
-      console.log(props);
+      // console.log(props);
       e.preventDefault();
 
       // This can all be extractd into its own util and maybe HOC
