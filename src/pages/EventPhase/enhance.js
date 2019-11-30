@@ -5,27 +5,38 @@ import {
   withProps,
   withState,
 } from 'recompose';
-// import { toJS } from 'immutable';
 import { connect } from 'react-redux';
 
-import { loadWorkingEvent } from '../../store/Gameplay';
+import { loadWorkingEncounter, loadWorkingEvent } from '../../store/Gameplay';
 
 const enhance = compose(
   connect(
     ({ Gameplay, Text }) => ({
       events: Text.get('events'),
+      encounters: Text.get('encounters'),
+      workingEncounter: Gameplay.get('workingEncounter'),
       workingEvent: Gameplay.get('workingEvent'),
       isSpeaking: Gameplay.get('isSpeaking'),
     }),
-    { loadWorkingEvent }
+    { loadWorkingEncounter, loadWorkingEvent }
   ),
   withProps(props => ({
     selectOptions: props.events.toJS().map(e => e.name),
+    encounterOptions: props.encounters.toJS().map(e => e.entry),
   })),
-  withState('isEventOn', 'setEventOn', false),
+  withState('encounterTriggered', 'setEncounterTriggered', false),
   withHandlers({
-    chooseEventCard: props => e => {
-      props.setEventOn(!props.isEventOn);
+    triggerEncounter: props => e => {
+      props.setEncounterTriggered(!props.encounterTriggered);
+    },
+    handleEncounterChange: props => e => {
+      const entry = e.target.value;
+
+      console.log('hy');
+
+      const encounter = props.encounters.toJS().filter(e => e.entry === entry);
+
+      props.loadWorkingEncounter(encounter[0]);
     },
     handleChange: props => e => {
       const name = e.target.value;

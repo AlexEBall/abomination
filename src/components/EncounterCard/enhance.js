@@ -15,8 +15,10 @@ const enhance = compose(
     componentDidMount() {
       const { props } = this;
 
+      console.log('heelj sljfa');
+
       const utterance = speakConfig({
-        text: props.event,
+        text: props.text,
         voice: 'Amelie',
         action: props.updateIsSpeaking,
       });
@@ -24,9 +26,9 @@ const enhance = compose(
     },
     componentDidUpdate(prevProps) {
       const { props } = this;
-      if (props.name !== prevProps.name) {
+      if (props.entry !== prevProps.entry) {
         const utterance = speakConfig({
-          text: props.event,
+          text: props.text,
           voice: 'Amelie',
           action: props.updateIsSpeaking,
         });

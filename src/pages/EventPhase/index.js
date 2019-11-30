@@ -3,31 +3,47 @@ import * as R from 'ramda';
 
 import enhance from './enhance';
 import { EventPhase } from './styles';
+import EncounterCard from '../../components/EncounterCard';
 import EventCard from '../../components/EventCard';
 
 const Component = ({
-  chooseEventCard,
+  triggerEncounter,
+  encounterOptions,
+  encounterTriggered,
+  handleEncounterChange,
   handleChange,
-  isEventOn,
   isSpeaking,
   selectOptions,
+  workingEncounter,
   workingEvent,
 }) => (
   <EventPhase>
-    <button onClick={chooseEventCard}>Trigger event</button>
-    {isEventOn && (
-      <form>
-        <select type='select' onChange={handleChange} disabled={isSpeaking}>
-          {selectOptions.map((option, i) => (
-            <option key={i} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </form>
-    )}
+    <button onClick={triggerEncounter}>Trigger Encounter</button>
+    <form>
+      <select type='select' onChange={handleChange} disabled={isSpeaking}>
+        {selectOptions.map((option, i) => (
+          <option key={i} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+      <select
+        type='select'
+        onChange={handleEncounterChange}
+        disabled={isSpeaking}
+      >
+        {encounterOptions.map((option, i) => (
+          <option key={i} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </form>
     {!R.either(R.isNil, R.isEmpty)(workingEvent.toJS()) && (
       <EventCard {...workingEvent.toJS()} />
+    )}
+    {!R.either(R.isNil, R.isEmpty)(workingEncounter.toJS()) && (
+      <EncounterCard {...workingEncounter.toJS()} />
     )}
   </EventPhase>
 );
