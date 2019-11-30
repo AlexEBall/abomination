@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
+import Gameplay from './Gameplay';
 import Text from './Text';
 import Voices from './Voices';
 
 const appReducers = {
+  Gameplay,
   Text,
   Voices,
 };

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  color: #fff;
   font-size: 18px;
   overflow-y: scroll;
 `;
